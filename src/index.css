@@ -1,0 +1,22 @@
+@import "tailwindcss";
+@import "@heroui/styles"; 
+
+body {
+  font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+}
+
+.scrollbar-hide {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.table__cell {
+  background-color: #1f2937; 
+  color: #f3f4f6; 
+  border-radius: 0;
+border-bottom: 1px solid rgba(75, 85, 99, 0.6);
+}

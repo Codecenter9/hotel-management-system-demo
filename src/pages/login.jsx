@@ -44,7 +44,7 @@ const Login = () => {
         </h1>
       </div>
 
-      <div className="relative flex flex-col items-center px-10 py-12 w-full gap-3 bg-gray-900/50 h-screen overflow-hidden">
+      <div className="relative flex flex-col items-center px-3 lg:px-10 py-12 w-full gap-3 bg-gray-900/50 h-screen overflow-hidden">
         <span className="absolute w-80 h-80 bg-emerald-500/20 rounded-full blur-3xl -top-40 -right-40 z-0"></span>
 
         <span className="absolute w-80 h-80 bg-indigo-500/20 rounded-full blur-3xl -bottom-40 -left-40 z-0"></span>
@@ -56,13 +56,13 @@ const Login = () => {
           </h1>
         </div>
 
-        <div className="w-full flex flex-col gap-5 bg-gray-900/30 p-10 rounded-md max-w-md z-10">
+        <div className="w-full flex flex-col gap-5 bg-gray-900/30 px-5 lg:px-10 py-10 rounded-md max-w-md z-10">
           <div className="flex flex-wrap w-full gap-2">
             {roles.map((role) => (
               <div
                 key={role.key}
                 onClick={() => setSelectedRole(role.key)}
-                className={`px-3 py-1 rounded-md text-sm cursor-pointer border transition-all duration-300
+                className={`px-3 py-1 rounded-md mb-5 text-sm cursor-pointer border transition-all duration-300
                   ${
                     selectedRole === role.key
                       ? "bg-emerald-500/30 border-emerald-500 text-white"

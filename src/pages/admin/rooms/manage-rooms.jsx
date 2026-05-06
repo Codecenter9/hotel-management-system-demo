@@ -44,7 +44,7 @@ const ManageRooms = () => {
       id: 3,
       value: 2,
       prefix: "",
-      tag: "under maintainance",
+      tag: "under maintenance",
     },
     {
       id: 4,
@@ -82,12 +82,16 @@ const ManageRooms = () => {
 
                 <Card.Footer className="flex items-center justify-end gap-2 p-0 mt-1">
                   <Chip
-                    color="accent"
-                    className={
-                      stat.tag != "under maintainance"
-                        ? "bg-gray-800 rounded-md text-emerald-500 capitalize"
-                        : "bg-amber-800 rounded-md text-white capitalize"
-                    }
+                    color={`${
+                      stat.tag === "under maintenance"
+                        ? "warning"
+                        : stat.tag === "booked rooms"
+                          ? "accent"
+                          : "success"
+                    }`}
+                    size="sm"
+                    variant="soft"
+                    className="px-1 rounded-md capitalize"
                   >
                     {stat.tag}
                   </Chip>
@@ -183,13 +187,24 @@ const ManageRooms = () => {
                   </Table.Header>
 
                   <Table.Body>
-                    {rooms.map((room) => (
-                      <Table.Row key={room.id}>
+                    {rooms.map((room, index) => (
+                      <Table.Row key={index}>
                         <Table.Cell>{room.room_number}</Table.Cell>
                         <Table.Cell>{room.room_type}</Table.Cell>
                         <Table.Cell>${room.price_per_night}</Table.Cell>
                         <Table.Cell>
-                          <Chip color="success" size="sm" variant="soft">
+                          <Chip
+                            color={`${
+                              room.status === "available"
+                                ? "success"
+                                : room.status === "booked"
+                                  ? "accent"
+                                  : "warning"
+                            }`}
+                            size="sm"
+                            variant="soft"
+                            className="px-1 rounded-md capitalize"
+                          >
                             {room.status}
                           </Chip>
                         </Table.Cell>

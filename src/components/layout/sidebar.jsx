@@ -51,7 +51,7 @@ const Sidebar = ({ authUser, isOpen, setIsOpen, collapsed, setCollapsed }) => {
           md:translate-x-0
         `}
       >
-        <div className="h-18 flex justify-between items-center p-4 border-b border-gray-800">
+        <div className="h-18 flex justify-between items-center p-4 border-b border-gray-700">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center">
               <User size={18} />

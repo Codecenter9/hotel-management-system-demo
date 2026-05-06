@@ -7,6 +7,7 @@ import {
   Header,
   Input,
   Label,
+  Pagination,
   Table,
 } from "@heroui/react";
 import styles from "../../../constants/styles";
@@ -19,40 +20,51 @@ import {
   Trash,
   TrendingUp,
 } from "lucide-react";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import rooms from "../../../constants/rooms";
 import RoomDetails from "./room-details";
 
+const stats = [
+  {
+    id: 1,
+    value: rooms.filter((room) => room.status === "available").length,
+    prefix: "",
+    tag: "available rooms",
+  },
+  {
+    id: 2,
+    value: rooms.filter((room) => room.status === "booked").length,
+    prefix: "",
+    tag: "booked rooms",
+  },
+  {
+    id: 3,
+    value: rooms.filter((room) => room.status === "maintenance").length,
+    prefix: "",
+    tag: "under maintenance",
+  },
+  {
+    id: 4,
+    value: 4000 + "+",
+    prefix: <DollarSign size={15} />,
+    tag: "total collected",
+  },
+];
+
+const ROWS_PER_PAGE = 10;
 const ManageRooms = () => {
   const [selected, setSelected] = useState("available");
   const [selectedRoom, setSelectedRoom] = useState();
 
-  const stats = [
-    {
-      id: 1,
-      value: 3,
-      prefix: "",
-      tag: "available rooms",
-    },
-    {
-      id: 2,
-      value: 5,
-      prefix: "",
-      tag: "booked rooms",
-    },
-    {
-      id: 3,
-      value: 2,
-      prefix: "",
-      tag: "under maintenance",
-    },
-    {
-      id: 4,
-      value: 400,
-      prefix: <DollarSign size={15} />,
-      tag: "total collected",
-    },
-  ];
+  const [page, setPage] = useState(1);
+  const totalPages = Math.ceil(rooms.length / ROWS_PER_PAGE);
+  const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+  const paginatedItems = useMemo(() => {
+    const start = (page - 1) * ROWS_PER_PAGE;
+    return rooms.slice(start, start + ROWS_PER_PAGE);
+  }, [page]);
+  const start = (page - 1) * ROWS_PER_PAGE + 1;
+  const end = Math.min(page * ROWS_PER_PAGE, rooms.length);
 
   return (
     <div className="flex flex-col gap-3 pb-10">
@@ -111,7 +123,8 @@ const ManageRooms = () => {
                 <Dropdown>
                   <Button
                     aria-label="Menu"
-                    className="rounded-md bg-gray-800 hover:bg-gray-700 transition-all duration-300"
+                    className={`${styles.button}`}
+                    variant="tertiary"
                   >
                     <Filter size={24} />
                   </Button>
@@ -152,7 +165,7 @@ const ManageRooms = () => {
                   </Dropdown.Popover>
                 </Dropdown>
               </div>
-              <Button className={`${styles.button}`}>
+              <Button className={`${styles.button}`} variant="tertiary">
                 <Plus size={18} />
                 Add Rooms
               </Button>
@@ -187,7 +200,7 @@ const ManageRooms = () => {
                   </Table.Header>
 
                   <Table.Body>
-                    {rooms.map((room, index) => (
+                    {paginatedItems.map((room, index) => (
                       <Table.Row key={index}>
                         <Table.Cell>{room.room_number}</Table.Cell>
                         <Table.Cell>{room.room_type}</Table.Cell>
@@ -242,6 +255,58 @@ const ManageRooms = () => {
                   </Table.Body>
                 </Table.Content>
               </Table.ResizableContainer>
+              <Table.Footer>
+                <Pagination size="sm">
+                  <Pagination.Summary className="text-gray-300">
+                    {start} to {end} of {rooms.length} results
+                  </Pagination.Summary>
+
+                  <Pagination.Content className="flex items-center gap-2">
+                    <Pagination.Item>
+                      <Pagination.Previous
+                        className="text-gray-100 bg-gray-800 hover:bg-gray-700 px-2 rounded-md transition"
+                        isDisabled={page === 1}
+                        onPress={() => setPage((p) => Math.max(1, p - 1))}
+                      >
+                        <Pagination.PreviousIcon />
+                        Prev
+                      </Pagination.Previous>
+                    </Pagination.Item>
+
+                    {pages.map((p) => (
+                      <Pagination.Item key={p}>
+                        <Pagination.Link
+                          isActive={p === page}
+                          onPress={() => setPage(p)}
+                          className={`
+                            px-3 py-1 rounded-full transition
+                            ${
+                              p === page
+                                ? "bg-gray-700 text-white"
+                                : "text-gray-300 hover:bg-gray-700"
+                            }
+                          `}
+                        >
+                          {p}
+                        </Pagination.Link>
+                      </Pagination.Item>
+                    ))}
+
+                    <Pagination.Item>
+                      <Pagination.Next
+                        className="text-gray-100 bg-gray-800 hover:bg-gray-700 px-2 rounded-md transition"
+                        isDisabled={page === totalPages}
+                        onPress={() =>
+                          setPage((p) => Math.min(totalPages, p + 1))
+                        }
+                      >
+                        Next
+                        <Pagination.NextIcon />
+                      </Pagination.Next>
+                    </Pagination.Item>
+                  </Pagination.Content>
+                </Pagination>
+              </Table.Footer>
             </Table>
           </div>
         </div>

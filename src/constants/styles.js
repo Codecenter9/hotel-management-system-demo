@@ -1,10 +1,10 @@
 const styles = {
     pageLayout: "bg-gray-900/90 text-white",
   input:
-    "w-full rounded-md bg-gray-800 border border-gray-700 text-sm text-white focus:ring-0 focus:border-emerald-500",
+    "w-full rounded-md bg-gray-800/30 border border-gray-700 text-sm text-white focus:ring-0 focus:border-emerald-500",
 
   button:
-    "rounded-md transition-all duration-300",
+    "bg-gray-800 bg-gray-800 hover:bg-gray-800/50 transition-all duration-300 rounded-md transition-all duration-300",
 
   card:
   "bg-gray-900/40 border border-gray-700 rounded-md p-5 text-gray-100 " +

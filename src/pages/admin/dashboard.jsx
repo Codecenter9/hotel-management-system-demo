@@ -53,7 +53,7 @@ const AdminDashboard = () => {
         <StatCard
           icon={<BedDouble className="text-green-400 size-5" />}
           title="Available Rooms"
-          value="32"
+          value="15"
           linkText="View"
           tag="Available"
         />
@@ -61,7 +61,7 @@ const AdminDashboard = () => {
         <StatCard
           icon={<CalendarCheck className="text-indigo-400 size-5" />}
           title="Booked Today"
-          value="18"
+          value="35"
           linkText="View"
           tag="Booked"
         />

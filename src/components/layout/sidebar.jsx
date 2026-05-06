@@ -77,7 +77,7 @@ const Sidebar = ({ authUser, isOpen, setIsOpen, collapsed, setCollapsed }) => {
           </button>
         </div>
         {!collapsed && (
-          <div className="flex items-center p-4">
+          <div className="flex items-center m-4 pb-3 border-b border-gray-700">
             <Input
               aria-label="Name"
               className={styles.input}
@@ -87,11 +87,6 @@ const Sidebar = ({ authUser, isOpen, setIsOpen, collapsed, setCollapsed }) => {
         )}
 
         <div className="flex-1 overflow-y-auto scrollbar-hide p-2 space-y-1">
-          <div className="w-full flex items-center my-2">
-            <h1 className="text-sm font-semibold font-serif tracking-wide text-gray-300 uppercase">
-              Menus
-            </h1>
-          </div>
           {menus.map((item, index) => {
             const Icon = item.icon;
 
@@ -105,7 +100,7 @@ const Sidebar = ({ authUser, isOpen, setIsOpen, collapsed, setCollapsed }) => {
     ${
       isActive(item.path)
         ? "bg-gray-800/20 text-emerald-400 border-l-2 border-emerald-500"
-        : "hover:bg-gray-800 text-gray-300"
+        : "hover:bg-gray-800/20 text-gray-300"
     }`}
                   >
                     {Icon && <Icon size={18} />}

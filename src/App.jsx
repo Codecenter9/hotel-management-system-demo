@@ -7,6 +7,7 @@ import CustomerDashboard from "./pages/customer/dashboard";
 import WaiterDashboard from "./pages/waiter/dashboard";
 import Login from "./pages/login";
 import ManageRooms from "./pages/admin/rooms/manage-rooms";
+import ManageBookings from "./pages/admin/bookings/manage-bookings";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="admin">
           <Route path="dashboard" element={<AdminDashboard />} />
           <Route path="rooms" element={<ManageRooms />} />
+          <Route path="bookings" element={<ManageBookings />} />
         </Route>
 
         <Route path="reception">
